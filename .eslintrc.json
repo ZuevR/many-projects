@@ -24,7 +24,7 @@
   "rules": {
     "object-curly-newline": [
       "error",
-      { "multiline": true, "minProperties": 5 }
+      { "multiline": true, "minProperties": 6 }
     ]
   }
 }

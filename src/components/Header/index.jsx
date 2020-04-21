@@ -9,9 +9,9 @@ const Header = () => (
   <nav className={`navbar fixed-top ${styles.navbar}`}>
     <div className="d-flex align-items-center navbar-left">
       <MenuButton
-        classNames="d-none d-md-block"
+        classNamesDesktop="d-none d-md-block"
+        classNamesMobile="d-xs-block d-sm-block d-md-none"
       />
-      left
     </div>
     <Link to="/">center</Link>
     <div className="navbar-right">
