@@ -1,0 +1,30 @@
+.navbar {
+  background: #fff;
+  height: 100px;
+  box-shadow: 0 1px 15px rgba(0, 0, 0, .04), 0 1px 6px rgba(0, 0, 0, .04);
+
+  &-left {
+    flex-basis: 40%;
+  }
+
+  &-right {
+    flex-basis: 40%;
+    text-align: right;
+
+    .user {
+      color: #7d7d7d;
+      margin-right: 60px;
+      position: relative;
+
+      button {
+        color: #7d7d7d;
+      }
+
+      img {
+        margin-left: 10px;
+        border-radius: 30px;
+        width: 40px;
+      }
+    }
+  }
+}
