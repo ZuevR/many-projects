@@ -8,6 +8,10 @@ body {
   padding: 1.5rem 0;
 }
 
-.btn {
+.btn, .dropdown-item {
   font-size: .8rem;
+}
+
+.dropdown-menu {
+  border-radius: .75rem;
 }

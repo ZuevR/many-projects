@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {
   UncontrolledDropdown,
   DropdownToggle,
@@ -21,17 +21,28 @@ const Header = () => (
         <MobileMenuIcon />
       </NavLink>
     </div>
-    <Link to="/">center</Link>
+    <NavLink
+      style={{
+        color: 'grey',
+        fontSize: '30px',
+        textDecoration: 'none',
+      }}
+      to="/"
+    >
+      Logo
+    </NavLink>
     <div className={styles['navbar-right']}>
       <div className={`${styles.user} d-inline-block`}>
         <UncontrolledDropdown className="dropdown-menu-right">
-          <DropdownToggle className="p-0" color="empty">
+          <DropdownToggle className="p-0 shadow-none" color="empty">
             <span className="name mr-1">Zuev Roman</span>
             <span>
               <img alt="Profile" src="/assets/img/default-user-image.png" />
             </span>
           </DropdownToggle>
           <DropdownMenu className="mt-3" right>
+            <DropdownItem onClick={() => console.log('account')}>Account</DropdownItem>
+            <div tabIndex="-1" className="dropdown-divider" />
             <DropdownItem onClick={() => console.log('logged out')}>
               Sign out
             </DropdownItem>
