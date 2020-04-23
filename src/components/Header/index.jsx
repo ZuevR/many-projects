@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import {
   UncontrolledDropdown,
   DropdownToggle,
@@ -7,17 +7,19 @@ import {
   DropdownItem,
 } from 'reactstrap';
 
-import MenuButton from '../Menu-Button';
+import { MenuIcon, MobileMenuIcon } from '../Menu-Icon';
 
 import styles from './Header.module.scss';
 
 const Header = () => (
   <nav className={`navbar fixed-top ${styles.navbar}`}>
     <div className={`d-flex align-items-center ${styles['navbar-left']}`}>
-      <MenuButton
-        classNamesDesktop="d-none d-md-block"
-        classNamesMobile="d-xs-block d-sm-block d-md-none"
-      />
+      <NavLink to="#" className={`${styles['menu-button']} d-none d-md-block`}>
+        <MenuIcon />
+      </NavLink>
+      <NavLink to="#" className={`${styles['menu-button-mobile']} d-xs-block d-sm-block d-md-none`}>
+        <MobileMenuIcon />
+      </NavLink>
     </div>
     <Link to="/">center</Link>
     <div className={styles['navbar-right']}>

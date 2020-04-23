@@ -1,0 +1,17 @@
+svg {
+  height: 12px;
+}
+
+.main, .sub {
+  fill: #8f8f8f;
+
+  &.opened {
+    fill: #303030;
+  }
+
+  transition: fill .3s linear;
+}
+
+.main {
+  width: 10px;
+}
