@@ -5,14 +5,21 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 
 import MainMenuItem from '../Main-Menu-Item';
 import { MenuContext } from '../../../../context/Menu-Context';
+import { menuStages } from '../../../../constants';
 
 import styles from './styles.module.scss';
 
-const MainMenu = ({ showMenu }) => {
-  const { mainItems, handleMenuClick } = useContext(MenuContext);
+const MainMenu = ({ closed }) => {
+  const { mainItems, menuStatus, handleMenuClick } = useContext(MenuContext);
 
   return (
-    <div className={`${styles['main-menu']} ${showMenu ? '' : styles['menu-hidden']}`}>
+    <div className={
+      `${styles['main-menu']} ${closed ? styles['menu-closed'] : ''} \
+      ${menuStatus.stage === menuStages.mainOpened
+      || menuStatus.stage === menuStages.subClosed
+        ? styles['menu-rounded'] : ''}`
+    }
+    >
       <div className={styles.scroll}>
         <PerfectScrollbar options={{
           suppressScrollX: true,
@@ -34,8 +41,8 @@ const MainMenu = ({ showMenu }) => {
   );
 };
 
-MainMenu.propTypes = { showMenu: PropTypes.bool };
+MainMenu.propTypes = { closed: PropTypes.bool };
 
-MainMenu.defaultProps = { showMenu: false };
+MainMenu.defaultProps = { closed: false };
 
 export default MainMenu;

@@ -9,8 +9,12 @@
   padding-bottom: 10px;
   left: 0;
 
-  &.menu-hidden {
+  &.menu-closed {
     transform: translateX(-120px);
+  }
+
+  &.menu-rounded {
+    border-radius: 0 .75rem .75rem 0;
   }
 
   .scroll {

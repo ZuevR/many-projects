@@ -15,7 +15,7 @@ const Sidebar = () => {
     <div className={styles.sidebar}>
       <MainMenuIconCtx>
         <MainMenu
-          showMenu={menuStatus.stage !== menuStages.mainClosed}
+          closed={menuStatus.stage === menuStages.mainClosed}
         />
       </MainMenuIconCtx>
       <SubMenuIconCtx>
