@@ -1,0 +1,9 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  padding-top: 100px;
+  z-index: 4;
+  height: calc(100% - 100px);
+  transition: border-radius .3s linear;
+}

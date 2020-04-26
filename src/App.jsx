@@ -1,11 +1,17 @@
 import React from 'react';
 
 import Header from './components/Header';
-
+import Sidebar from './components/Sidebar';
+import MenuCtx from './context/Menu-Context';
 
 const App = () => (
   <div className="h-100">
-    <Header />
+    <div id="app-container" className="menu-default">
+      <MenuCtx>
+        <Header />
+        <Sidebar />
+      </MenuCtx>
+    </div>
   </div>
 );
 

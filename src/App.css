@@ -2,6 +2,9 @@
 
 body {
   font-family: Nunito, sans-serif;
+  font-size: .8rem;
+  font-weight: 400;
+  color: #303030;
 }
 
 .navbar {
