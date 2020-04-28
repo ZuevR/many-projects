@@ -25,8 +25,8 @@ const Header = () => {
           onClick={toggleMenu}
         >
           <MenuIcon
-            activeMain={menuStatus.stage !== menuStages.mainClosed}
-            activeSub={menuStatus.stage === menuStages.subOpened}
+            activeMain={menuStatus !== menuStages.mainClosed}
+            activeSub={menuStatus === menuStages.subOpened}
           />
         </NavLink>
         <NavLink

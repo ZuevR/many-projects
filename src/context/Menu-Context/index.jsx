@@ -7,10 +7,7 @@ import { mainMenuItems, subMenuItems } from './items';
 export const MenuContext = createContext({});
 
 const MenuCtx = ({ children }) => {
-  const [menuStatus, setMenuStatus] = useState({
-    forward: 'increase',
-    stage: menuStages.mainOpened,
-  });
+  const [menuStatus, setMenuStatus] = useState(menuStages.mainOpened);
   const [mainItems, setMenuItems] = useState(mainMenuItems);
   const [subItems, setSubItems] = useState(subMenuItems);
 
@@ -25,19 +22,26 @@ const MenuCtx = ({ children }) => {
   const showSubMenu = (id) => {
     const menuItems = getSubItems(id);
     setSubItems(menuItems);
-    setMenuStatus({ forward: 'decrease', stage: menuStages.subOpened });
+    setMenuStatus(menuStages.subOpened);
   };
 
   const toggleMenu = () => {
     let newMenuStatus = {};
-    if (menuStatus.forward === 'increase' && menuStatus.stage === menuStages.mainOpened) {
-      newMenuStatus = { forward: 'decrease', stage: menuStages.subOpened };
-    } else if (menuStatus.forward === 'decrease' && menuStatus.stage === menuStages.subOpened) {
-      newMenuStatus = { forward: 'decrease', stage: menuStages.subClosed };
-    } else if (menuStatus.forward === 'decrease' && menuStatus.stage === menuStages.subClosed) {
-      newMenuStatus = { forward: 'increase', stage: menuStages.mainClosed };
-    } else if (menuStatus.forward === 'increase' && menuStatus.stage === menuStages.mainClosed) {
-      newMenuStatus = { forward: 'increase', stage: menuStages.mainOpened };
+    switch (menuStatus) {
+      case menuStages.mainOpened:
+        newMenuStatus = menuStages.subOpened;
+        break;
+      case menuStages.subOpened:
+        newMenuStatus = menuStages.subClosed;
+        break;
+      case menuStages.subClosed:
+        newMenuStatus = menuStages.mainClosed;
+        break;
+      case menuStages.mainClosed:
+        newMenuStatus = menuStages.mainOpened;
+        break;
+      default:
+        return;
     }
     setMenuStatus(newMenuStatus);
   };

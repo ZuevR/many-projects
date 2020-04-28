@@ -15,9 +15,7 @@ const MainMenu = ({ closed }) => {
   return (
     <div className={
       `${styles['main-menu']} ${closed ? styles['menu-closed'] : ''} \
-      ${menuStatus.stage === menuStages.mainOpened
-      || menuStatus.stage === menuStages.subClosed
-        ? styles['menu-rounded'] : ''}`
+      ${menuStatus !== menuStages.subOpened ? styles['menu-rounded'] : ''}`
     }
     >
       <div className={styles.scroll}>

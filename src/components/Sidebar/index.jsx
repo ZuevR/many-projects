@@ -14,16 +14,12 @@ const Sidebar = () => {
   return (
     <div className={styles.sidebar}>
       <MainMenuIconCtx>
-        <MainMenu
-          closed={menuStatus.stage === menuStages.mainClosed}
-        />
+        <MainMenu closed={menuStatus === menuStages.mainClosed} />
       </MainMenuIconCtx>
       <SubMenuIconCtx>
         <SubMenu
-          hidden={
-            menuStatus.stage === menuStages.subClosed || menuStatus.stage === menuStages.mainOpened
-          }
-          closed={menuStatus.stage === menuStages.mainClosed}
+          hidden={menuStatus === menuStages.subClosed || menuStatus === menuStages.mainOpened}
+          closed={menuStatus === menuStages.mainClosed}
         />
       </SubMenuIconCtx>
     </div>

@@ -2,4 +2,46 @@
   margin-bottom: 0;
   margin-left: 30px;
   position: relative;
+  cursor: pointer;
+  user-select: none;
+
+  &.active, &:hover {
+
+    .sub-menu-link {
+      color: #922c88;
+
+      svg {
+        fill: #922c88;
+      }
+    }
+  }
+
+  &.active {
+    .sub-menu-link {
+      &:after {
+        content: '';
+        background: #922c88;
+        border-radius: 10px;
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        left: -16px;
+      }
+    }
+  }
+
+  .sub-menu-link {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    margin-bottom: 10px;
+
+    .icon {
+      margin-left: 10px;
+    }
+  }
 }
