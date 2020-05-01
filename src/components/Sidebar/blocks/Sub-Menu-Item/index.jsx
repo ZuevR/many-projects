@@ -4,9 +4,10 @@ import { NavItem, NavLink } from 'reactstrap';
 
 import styles from './styles.module.scss';
 
-const SubMenuItem = ({ item }) => (
+const SubMenuItem = ({ item, onClick }) => (
   <NavItem
     className={`${styles['sub-menu-item']} ${item.active ? styles.active : ''}`}
+    onClick={onClick}
   >
     <NavLink className={styles['sub-menu-link']}>
       {item.icon}
@@ -24,6 +25,12 @@ SubMenuItem.propTypes = {
     active: PropTypes.bool,
     icon: PropTypes.node,
   }).isRequired,
+  onClick: PropTypes.func,
+};
+
+SubMenuItem.defaultProps = {
+  onClick: () => {
+  },
 };
 
 export default SubMenuItem;

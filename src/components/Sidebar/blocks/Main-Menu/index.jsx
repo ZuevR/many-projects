@@ -10,7 +10,7 @@ import { menuStages } from '../../../../constants';
 import styles from './styles.module.scss';
 
 const MainMenu = ({ closed }) => {
-  const { mainItems, menuStatus, handleMenuClick } = useContext(MenuContext);
+  const { mainItems, menuStatus, handleMenuClick, menuItems } = useContext(MenuContext);
 
   return (
     <div className={

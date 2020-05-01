@@ -9,7 +9,7 @@ import SubMenuItem from '../Sub-Menu-Item';
 import styles from './styles.module.scss';
 
 const SubMenu = ({ hidden, closed }) => {
-  const { subItems } = useContext(MenuContext);
+  const { subItems, handleSubMenuClick } = useContext(MenuContext);
 
   return (
     <div
@@ -24,7 +24,9 @@ const SubMenu = ({ hidden, closed }) => {
           className={styles['scroll-container']}
         >
           <Nav className="d-block">
-            {subItems.map((item) => <SubMenuItem key={item.id} item={item} />)}
+            {subItems.map((item) => (
+              <SubMenuItem key={item.id} item={item} onClick={() => handleSubMenuClick(item)} />
+            ))}
           </Nav>
         </PerfectScrollbar>
       </div>
