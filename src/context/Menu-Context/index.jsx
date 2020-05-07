@@ -1,88 +1,51 @@
-import React, { createContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { menuStages } from '../../constants';
-import { mainMenuItems, subMenuItems, items } from './items';
+import { menuStages, menuSize as size } from '../../constants';
 
 export const MenuContext = createContext({});
 
 const MenuCtx = ({ children }) => {
-  const history = useHistory();
-  const [menuStatus, setMenuStatus] = useState(menuStages.mainOpened);
-  const [mainItems, setMenuItems1] = useState(mainMenuItems);
-  const [subItems, setSubItems] = useState(subMenuItems);
-  const [menuItems, setMenuItems] = useState(items);
+  const [menuSize, setMenuSize] = useState(size.full);
+  const [menuStatus, setMenuStatus] = useState(menuStages.subOpened);
 
-  const getSubItems = (mainMenuId) => subMenuItems.filter((item) => item.refId === mainMenuId);
-
-  const initActiveMenuItems = () => {
-    console.log(history);
-  };
-
-  useEffect(() => {
-    console.log(history);
-    // const { id } = mainItems.filter((item) => item.active)[0];
-    // const menuItems1 = getSubItems(id);
-    // setSubItems(menuItems1);
-  }, []);
-
-  const showSubMenu = (id) => {
-    const menuItems1 = getSubItems(id);
-    setSubItems(menuItems1);
-    setMenuStatus(menuStages.subOpened);
+  const changeMenuBehavior = (option) => {
+    if (option === size.half) {
+      setMenuStatus(menuStages.mainOpened);
+    } else {
+      setMenuStatus(menuStages.subOpened);
+    }
+    setMenuSize(option);
   };
 
   const toggleMenu = () => {
-    let newMenuStatus = {};
-    switch (menuStatus) {
-      case menuStages.mainOpened:
-        newMenuStatus = menuStages.subOpened;
-        break;
-      case menuStages.subOpened:
-        newMenuStatus = menuStages.subClosed;
-        break;
-      case menuStages.subClosed:
-        newMenuStatus = menuStages.mainClosed;
-        break;
-      case menuStages.mainClosed:
-        newMenuStatus = menuStages.mainOpened;
-        break;
-      default:
-        return;
+    if (menuSize === size.full) {
+      switch (menuStatus) {
+        case menuStages.mainOpened:
+          return setMenuStatus(menuStages.subOpened);
+        case menuStages.subOpened:
+          return setMenuStatus(menuStages.subClosed);
+        case menuStages.subClosed:
+          return setMenuStatus(menuStages.mainClosed);
+        case menuStages.mainClosed:
+          return setMenuStatus(menuStages.mainOpened);
+        default:
+          return null;
+      }
+    } else {
+      switch (menuStatus) {
+        case menuStages.mainOpened:
+          return setMenuStatus(menuStages.mainClosed);
+        case menuStages.mainClosed:
+          return setMenuStatus(menuStages.mainOpened);
+        default:
+          return null;
+      }
     }
-    setMenuStatus(newMenuStatus);
-  };
-
-  const handleMenuClick = ({ id, hasSubMenu }) => {
-    const newItems = mainItems.map((item) => {
-      if (item.id === id) return { ...item, active: true };
-      return { ...item, active: false };
-    });
-    if (hasSubMenu) showSubMenu(id);
-    setMenuItems1(newItems);
-  };
-
-  const handleSubMenuClick = ({ id }) => {
-    const newItems = subItems.map((item) => {
-      if (item.id === id) return { ...item, active: true };
-      return { ...item, active: false };
-    });
-    setSubItems(newItems);
   };
 
   return (
-    <MenuContext.Provider value={{
-      menuItems,
-      menuStatus,
-      mainItems,
-      subItems,
-      toggleMenu,
-      showSubMenu,
-      handleMenuClick,
-      handleSubMenuClick,
-    }}
-    >
+    <MenuContext.Provider value={{ menuStatus, changeMenuBehavior, toggleMenu }}>
       {children}
     </MenuContext.Provider>
   );

@@ -1,33 +1,8 @@
-.main-menu-item {
+.menu-item {
   cursor: pointer;
   user-select: none;
 
-  &.active, &:hover {
-
-    .main-menu-link {
-      color: #922c88;
-
-      svg {
-        fill: #922c88;
-      }
-    }
-  }
-
-  &.active {
-    .main-menu-link {
-      &:after {
-        content: '';
-        background: #922c88;
-        border-radius: 10px;
-        position: absolute;
-        width: 6px;
-        height: 90px;
-        left: 0;
-      }
-    }
-  }
-
-  .main-menu-link {
+  .menu-link {
     height: 110px;
     display: flex;
     flex-direction: column;
@@ -39,5 +14,24 @@
     border-bottom: 1px solid #f3f3f3;
     color: #303030;
     padding: 0;
+    text-decoration: none;
+
+    &.active, &:hover {
+      color: #922c88;
+
+      svg {
+        fill: #922c88;
+      }
+    }
+
+    &.active:after {
+      content: '';
+      background: #922c88;
+      border-radius: 10px;
+      position: absolute;
+      width: 6px;
+      height: 90px;
+      left: 0;
+    }
   }
 }

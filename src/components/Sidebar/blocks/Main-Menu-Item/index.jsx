@@ -1,41 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavItem, NavLink } from 'reactstrap';
+import { NavItem } from 'reactstrap';
 
 import styles from './styles.module.scss';
 
-const MainMenuItem = ({ item, onClick }) => (
-  <NavItem
-    className={`${styles['main-menu-item']} ${item.active ? styles.active : ''}`}
-    onClick={onClick}
-  >
-    <NavLink
-      to={item.to}
-      data-flag={item.id}
-      className={styles['main-menu-link']}
-    >
-      {item.icon}
-      <span>{item.label}</span>
-    </NavLink>
-  </NavItem>
-);
+const MainMenuItem = ({ item, handleItemClick }) => {
+  console.log('<-- Render MainMenuItem -->');
 
+  return (
+    <NavItem className={styles['menu-item']}>
+      <div
+        role="menuitem"
+        tabIndex="0"
+        className={`${styles['menu-link']} ${item.active ? styles.active : ''}`}
+        onClick={() => handleItemClick(item)}
+        onKeyPress={() => handleItemClick(item)}
+      >
+        {item.icon}
+        <span>{item.label}</span>
+      </div>
+    </NavItem>
+  );
+};
 
 MainMenuItem.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.number,
     label: PropTypes.string,
     to: PropTypes.string,
-    hasSubMenu: PropTypes.bool,
     active: PropTypes.bool,
     icon: PropTypes.node,
+    subItems: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        label: PropTypes.string,
+        to: PropTypes.string,
+        active: PropTypes.bool,
+        icon: PropTypes.node,
+      })),
+      PropTypes.bool,
+    ]),
   }).isRequired,
-  onClick: PropTypes.func,
+  handleItemClick: PropTypes.func,
 };
 
 MainMenuItem.defaultProps = {
-  onClick: () => {
+  handleItemClick: () => {
   },
 };
 
-export default MainMenuItem;
+export default React.memo(MainMenuItem);

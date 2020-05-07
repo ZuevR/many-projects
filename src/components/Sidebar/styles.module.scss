@@ -1,0 +1,70 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  padding-top: 100px;
+  z-index: 4;
+  height: calc(100% - 100px);
+  transition: border-radius .3s linear;
+
+  .main-menu {
+    width: 120px;
+    height: calc(100% - 100px);
+    background: #fff;
+    z-index: 3;
+    position: fixed;
+    transition: transform .3s linear;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    left: 0;
+
+    &-closed {
+      transform: translateX(-120px);
+    }
+
+    &-rounded {
+      border-radius: 0 .75rem .75rem 0;
+    }
+
+    .scroll {
+      padding-right: unset;
+      margin-right: unset;
+      height: 100%;
+    }
+  }
+
+  .sub-menu {
+    width: 230px;
+    background: #fff;
+    z-index: 2;
+    position: fixed;
+    left: 120px;
+    border-left: 1px solid #f3f3f3;
+    box-shadow: 0 3px 30px rgba(0, 0, 0, .1), 0 3px 20px rgba(0, 0, 0, .1);
+    transition: transform .3s linear;
+    height: calc(100% - 100px);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 0;
+    border-radius: 0 .75rem .75rem 0;
+
+    &-hidden {
+      transform: translateX(-230px);
+    }
+
+    &-closed {
+      transform: translateX(-350px);
+    }
+
+    .scroll {
+      padding-right: unset;
+      margin-right: unset;
+      height: 100%;
+
+      &-container {
+        padding-top: 15px;
+        padding-bottom: 15px;
+      }
+    }
+  }
+}

@@ -11,7 +11,7 @@ import { MenuContext } from '../../context/Menu-Context';
 import { MenuIcon, MobileMenuIcon } from '../Menu-Icon';
 import { menuStages } from '../../constants';
 
-import styles from './Header.module.scss';
+import styles from './styles.module.scss';
 
 const Header = () => {
   const { menuStatus, toggleMenu } = useContext(MenuContext);
