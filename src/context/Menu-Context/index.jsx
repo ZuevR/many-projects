@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { menuStages, menuSize as size } from '../../constants';
@@ -9,14 +9,14 @@ const MenuCtx = ({ children }) => {
   const [menuSize, setMenuSize] = useState(size.full);
   const [menuStatus, setMenuStatus] = useState(menuStages.subOpened);
 
-  const changeMenuBehavior = (option) => {
+  const changeMenuBehavior = useCallback((option) => {
     if (option === size.half) {
       setMenuStatus(menuStages.mainOpened);
     } else {
       setMenuStatus(menuStages.subOpened);
     }
     setMenuSize(option);
-  };
+  }, []);
 
   const toggleMenu = () => {
     if (menuSize === size.full) {

@@ -19,26 +19,35 @@ const Sidebar = () => {
 
   const { menuStatus, changeMenuBehavior } = useContext(MenuContext);
 
-  const setActiveItem = useCallback((id) => {
-    const newMenuItems = menuItems.map((item) => {
-      if (item.id === id) {
-        changeMenuBehavior(item.subItems.length ? size.full : size.half);
+  const setActiveItemByClick = useCallback((id) => {
+    const setActiveItem = (arr) => arr.map((item) => ({ ...item, active: item.id === id }));
+    setMenuItems((state) => setActiveItem(state));
+  }, []);
+
+  const setActiveByInit = useCallback(() => {
+    let itemHasSubItems = true;
+
+    const setActiveItem = (arr) => arr.map((item) => {
+      if (pathname.indexOf(item.to) !== -1) {
+        itemHasSubItems = !!item.subItems.length;
         return { ...item, active: true };
       }
       return { ...item, active: false };
     });
-    setMenuItems(newMenuItems);
-  }, []);
+    setMenuItems((state) => setActiveItem(state));
+    changeMenuBehavior(itemHasSubItems ? size.full : size.half);
+  }, [pathname, changeMenuBehavior]);
 
-  useEffect(() => {
-    let current = 0;
-    menuItems.forEach((item) => {
-      if (pathname.indexOf(item.to) !== -1) current = item.id;
-    });
-    setActiveItem(current);
-  }, [pathname, setActiveItem]);
+  const setMainMenuItemsStatus = ({ id, subItems }) => {
+    setActiveItemByClick(id);
+    if (!subItems.length) {
+      changeMenuBehavior(size.half);
+    } else {
+      changeMenuBehavior(size.full);
+    }
+  };
 
-  const setMainMenuItemsStatus = ({ id }) => setActiveItem(id);
+  useEffect(() => setActiveByInit(), [setActiveByInit]);
 
   return (
     <div className={styles.sidebar}>
@@ -50,7 +59,11 @@ const Sidebar = () => {
       >
         <div className={styles.scroll}>
           <MainMenuIconCtx>
-            <PerfectScrollbar options={{ suppressScrollX: true, wheelPropagation: false }}>
+            <PerfectScrollbar options={{
+              suppressScrollX: true,
+              wheelPropagation: false,
+            }}
+            >
               <Nav className="d-block">
                 {menuItems && menuItems.map((menuItem) => (
                   <MainMenuItem
@@ -73,7 +86,10 @@ const Sidebar = () => {
         <div className={styles.scroll}>
           <SubMenuIconCtx>
             <PerfectScrollbar
-              options={{ suppressScrollX: true, wheelPropagation: false }}
+              options={{
+                suppressScrollX: true,
+                wheelPropagation: false,
+              }}
               className={styles['scroll-container']}
             >
               {menuItems && menuItems.map((menuItem) => (menuItem.subItems.length
@@ -91,6 +107,5 @@ const Sidebar = () => {
     </div>
   );
 };
-
 
 export default Sidebar;
