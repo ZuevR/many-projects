@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
+import AppCtx from './context/App-Context';
 import * as serviceWorker from './serviceWorker';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -12,7 +13,9 @@ import './App.css';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <AppCtx>
+        <App />
+      </AppCtx>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root'),

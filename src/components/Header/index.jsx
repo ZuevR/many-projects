@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import {
   UncontrolledDropdown,
@@ -8,33 +9,35 @@ import {
 } from 'reactstrap';
 
 import { MenuContext } from '../../context/Menu-Context';
-import { MenuIcon, MobileMenuIcon } from '../Menu-Icon';
 import { menuStages } from '../../constants';
 
 import styles from './styles.module.scss';
+import MenuButton from './blocks/Menu-Button';
+import { storage } from '../../context/App-Context';
 
-const Header = () => {
+const Header = ({ isAuth, setAuth }) => {
   const { menuStatus, toggleMenu } = useContext(MenuContext);
+
+  const login = () => {
+    storage.setData({ isAuth: true });
+    setAuth(true);
+  };
+
+  const logout = () => {
+    storage.setData({ isAuth: false });
+    setAuth(false);
+  };
 
   return (
     <nav className={`navbar fixed-top ${styles.navbar}`}>
       <div className={`d-flex align-items-center ${styles['navbar-left']}`}>
-        <NavLink
-          to="#"
-          className={`${styles['menu-button']} d-none d-md-block`}
-          onClick={toggleMenu}
-        >
-          <MenuIcon
+        {isAuth && (
+          <MenuButton
+            handleClick={toggleMenu}
             activeMain={menuStatus !== menuStages.mainClosed}
             activeSub={menuStatus === menuStages.subOpened}
           />
-        </NavLink>
-        <NavLink
-          to="#"
-          className={`${styles['menu-button-mobile']} d-xs-block d-sm-block d-md-none`}
-        >
-          <MobileMenuIcon />
-        </NavLink>
+        )}
       </div>
       <NavLink
         style={{
@@ -58,7 +61,10 @@ const Header = () => {
             <DropdownMenu className="mt-3" right>
               <DropdownItem onClick={() => console.log('account')}>Account</DropdownItem>
               <div tabIndex="-1" className="dropdown-divider" />
-              <DropdownItem onClick={() => console.log('logged out')}>
+              <DropdownItem onClick={login}>
+                Sign in
+              </DropdownItem>
+              <DropdownItem onClick={logout}>
                 Sign out
               </DropdownItem>
             </DropdownMenu>
@@ -67,6 +73,17 @@ const Header = () => {
       </div>
     </nav>
   );
+};
+
+Header.propTypes = {
+  isAuth: PropTypes.bool,
+  setAuth: PropTypes.func,
+};
+
+Header.defaultProps = {
+  isAuth: false,
+  setAuth: () => {
+  },
 };
 
 export default Header;

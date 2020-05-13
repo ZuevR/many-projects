@@ -24,9 +24,8 @@ const Sidebar = () => {
     setMenuItems((state) => setActiveItem(state));
   }, []);
 
-  const setActiveByInit = useCallback(() => {
+  const setActiveItemByInit = useCallback(() => {
     let itemHasSubItems = true;
-
     const setActiveItem = (arr) => arr.map((item) => {
       if (pathname.indexOf(item.to) !== -1) {
         itemHasSubItems = !!item.subItems.length;
@@ -47,7 +46,7 @@ const Sidebar = () => {
     }
   };
 
-  useEffect(() => setActiveByInit(), [setActiveByInit]);
+  useEffect(() => setActiveItemByInit(), [setActiveItemByInit]);
 
   return (
     <div className={styles.sidebar}>

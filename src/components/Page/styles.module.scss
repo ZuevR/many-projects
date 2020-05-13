@@ -1,0 +1,16 @@
+.page {
+
+  &-wide {
+    margin: 145px 60px 40px 60px;
+  }
+
+  &-mid {
+    margin: 145px 60px 40px 180px;
+  }
+
+  &-narrow {
+    margin: 145px 60px 40px 410px;
+  }
+
+  transition: margin .3s linear;
+}
