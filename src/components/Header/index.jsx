@@ -13,20 +13,9 @@ import { menuStages } from '../../constants';
 
 import styles from './styles.module.scss';
 import MenuButton from './blocks/Menu-Button';
-import { storage } from '../../context/App-Context';
 
-const Header = ({ isAuth, setAuth }) => {
+const Header = ({ isAuth, login, logout }) => {
   const { menuStatus, toggleMenu } = useContext(MenuContext);
-
-  const login = () => {
-    storage.setData({ isAuth: true });
-    setAuth(true);
-  };
-
-  const logout = () => {
-    storage.setData({ isAuth: false });
-    setAuth(false);
-  };
 
   return (
     <nav className={`navbar fixed-top ${styles.navbar}`}>
@@ -77,13 +66,14 @@ const Header = ({ isAuth, setAuth }) => {
 
 Header.propTypes = {
   isAuth: PropTypes.bool,
-  setAuth: PropTypes.func,
+  login: PropTypes.func,
+  logout: PropTypes.func,
 };
 
 Header.defaultProps = {
   isAuth: false,
-  setAuth: () => {
-  },
+  login: () => {},
+  logout: () => {},
 };
 
 export default Header;

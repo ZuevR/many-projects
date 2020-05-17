@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   Form,
@@ -12,25 +12,21 @@ import {
   Button,
 } from 'reactstrap';
 
+import { useHistory } from 'react-router';
+import AppValidator from '../../../helpers/Validator';
 import FormError from '../../../components/Form-Error';
+import { AppContext } from '../../../context/App-Context';
 
 import styles from './styles.module.scss';
-import AppValidator from '../../../helpers/Validator';
 
 const SignIn = () => {
   const [fakeCondition] = useState(false);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
-  const [formErrorText, setFormErrorText] = useState({
-    email: 'error',
-    password: 'error',
-  });
-  const [errorsVisibility, setErrorsVisibility] = useState({
-    email: false,
-    password: false,
-  });
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [formErrorText, setFormErrorText] = useState({ email: 'error', password: 'error' });
+  const [errorsVisibility, setErrorsVisibility] = useState({ email: false, password: false });
+
+  const { push, location: { state: { from } } } = useHistory();
+  const { login } = useContext(AppContext);
 
   const setFormErrors = (name, message) => setFormErrorText((state) => ({
     ...state,
@@ -73,6 +69,8 @@ const SignIn = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    login();
+    push(from);
   };
 
   return (

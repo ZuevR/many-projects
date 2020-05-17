@@ -8,7 +8,6 @@ import styles from './styles.module.scss';
 
 const AuthLayout = () => {
   console.log('<-- Render AuthLayout -->');
-
   return (
     <div className={styles.auth}>
       <Switch>

@@ -10,10 +10,21 @@ export const storage = new Storage();
 const AppCtx = ({ children }) => {
   const [isAuth, setAuth] = useState(storage.getData().isAuth || false);
 
+  const login = () => {
+    storage.setData({ isAuth: true });
+    setAuth(true);
+  };
+
+  const logout = () => {
+    storage.setData({ isAuth: false });
+    setAuth(false);
+  };
+
   return (
     <AppContext.Provider value={{
       isAuth,
-      setAuth,
+      login,
+      logout,
     }}
     >
       {children}

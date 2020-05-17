@@ -1,30 +1,29 @@
 import React, { lazy, Suspense, useContext } from 'react';
-import { Route, Redirect } from 'react-router';
+import { Route, Switch } from 'react-router';
 
 import MenuCtx from './context/Menu-Context';
 import Header from './components/Header';
+import AuthRoute from './components/AuthRoute';
 import { AppContext } from './context/App-Context';
 
 const AppLayout = lazy(() => import('./layouts/App-Layout'));
 const AuthLayout = lazy(() => import('./layouts/Auth-Layout'));
 
-const AuthRoute = ({ component: Component, authUser }) => (
-  <Route component={authUser ? Component : <Redirect to="/auth/login" />} />
-);
-
-
 const App = () => {
   console.log('<-- Render App -->');
-  const { isAuth, setAuth } = useContext(AppContext);
+  const { isAuth, login, logout } = useContext(AppContext);
 
   return (
     <div className="h-100">
       <div id="app-container" className="menu-default">
         <MenuCtx>
-          <Header isAuth={isAuth} setAuth={setAuth} />
+          <Header isAuth={isAuth} login={login} logout={logout} />
 
           <Suspense fallback="...Loading">
-            {isAuth ? <AppLayout /> : <AuthLayout />}
+            <Switch>
+              <Route path="/auth/login" component={AuthLayout} />
+              <AuthRoute component={AppLayout} authUser={isAuth} />
+            </Switch>
           </Suspense>
 
         </MenuCtx>
