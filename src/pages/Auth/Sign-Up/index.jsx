@@ -1,33 +1,39 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
-  Form,
-  Container,
-  Row,
-  Col,
-  FormGroup,
-  FormFeedback,
-  Label,
-  Input,
   Button,
+  Col,
+  Container,
+  Form,
+  FormFeedback,
+  FormGroup,
+  Input,
+  Label,
+  Row,
 } from 'reactstrap';
 
 import FormError from '../../../components/Form-Error';
-
-import styles from './styles.module.scss';
 import AppValidator from '../../../helpers/Validator';
 
-const SignIn = () => {
+import styles from './styles.module.scss';
+
+const SignUp = () => {
   const [fakeCondition] = useState(false);
   const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
   });
   const [formErrorText, setFormErrorText] = useState({
+    firstName: 'error',
+    lastName: 'error',
     email: 'error',
     password: 'error',
   });
   const [errorsVisibility, setErrorsVisibility] = useState({
+    firstName: false,
+    lastName: false,
     email: false,
     password: false,
   });
@@ -38,8 +44,32 @@ const SignIn = () => {
   }));
 
   const checkErrors = (target) => {
-    const message = AppValidator.checkRequired(target);
-    setFormErrors(target.name, message);
+    let errorMessage = '';
+    switch (target.name) {
+      case 'firstName': {
+        errorMessage = AppValidator.checkRequired(target);
+        if (!errorMessage.length) errorMessage = AppValidator.checkLength(target, 2, 30);
+        break;
+      }
+      case 'lastName': {
+        errorMessage = AppValidator.checkRequired(target);
+        if (!errorMessage.length) errorMessage = AppValidator.checkLength(target, 2, 30);
+        break;
+      }
+      case 'email': {
+        errorMessage = AppValidator.checkRequired(target);
+        if (!errorMessage.length) errorMessage = AppValidator.checkEmail(target);
+        break;
+      }
+      case 'password': {
+        errorMessage = AppValidator.checkRequired(target);
+        if (!errorMessage.length) errorMessage = AppValidator.checkLength(target, 6, 30);
+        break;
+      }
+      default:
+        break;
+    }
+    setFormErrors(target.name, errorMessage);
   };
 
   const showErrors = (target) => {
@@ -79,8 +109,44 @@ const SignIn = () => {
     <Container>
       <Row className="justify-content-center">
         <Col lg={6}>
-          <Form className={styles['sign-in-form']} onSubmit={handleSubmit} noValidate>
+          <Form className={styles['sign-up-form']} onSubmit={handleSubmit} noValidate>
             {fakeCondition && <FormError message="test error message" />}
+            <Row form>
+              <Col md={6}>
+                <FormGroup>
+                  <Label for="firstName">First Name</Label>
+                  <Input
+                    type="text"
+                    name="firstName"
+                    id="firstName"
+                    className={`shadow-none ${styles.input}`}
+                    value={formData.firstName}
+                    invalid={errorsVisibility.firstName}
+                    onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                  />
+                  <FormFeedback>{formErrorText.firstName}</FormFeedback>
+                </FormGroup>
+              </Col>
+              <Col md={6}>
+                <FormGroup>
+                  <Label for="lastName">Last Name</Label>
+                  <Input
+                    type="text"
+                    name="lastName"
+                    id="lastName"
+                    className={`shadow-none ${styles.input}`}
+                    value={formData.lastName}
+                    invalid={errorsVisibility.lastName}
+                    onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                  />
+                  <FormFeedback>{formErrorText.lastName}</FormFeedback>
+                </FormGroup>
+              </Col>
+            </Row>
             <FormGroup>
               <Label for="email">Email</Label>
               <Input
@@ -115,13 +181,18 @@ const SignIn = () => {
               outline
               className={`${styles['submit-button']} shadow-none mt-3`}
               size="lg"
-              disabled={!!formErrorText.email || !!formErrorText.password}
+              disabled={
+                !!formErrorText.firstName
+                || !!formErrorText.lastName
+                || !!formErrorText.email
+                || !!formErrorText.password
+              }
             >
-              Sign In
+              Sign Up
             </Button>
             <div className={styles['help-link']}>
-              <NavLink to="/auth/registration" className={styles['help-link-text']}>
-                Don&apos;t have an account yet?
+              <NavLink to="/auth/login" className={styles['help-link-text']}>
+                Already have an account?
               </NavLink>
             </div>
           </Form>
@@ -131,4 +202,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
