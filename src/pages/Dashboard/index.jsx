@@ -5,7 +5,7 @@ const Dashboard = () => {
   console.log('<-- Render Dashboard -->');
 
   return (
-    <Redirect to="/dashboard/main-page" />
+    <div>asd</div>
   );
 };
 

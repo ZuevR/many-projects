@@ -1,13 +1,16 @@
 import React, { lazy, Suspense, useContext } from 'react';
-import { Route, Switch } from 'react-router';
+import { Redirect, Route, Switch } from 'react-router';
 
 import MenuCtx from './context/Menu-Context';
 import Header from './components/Header';
-import AuthRoute from './components/AuthRoute';
+import PrivateRoute from './components/AuthRoute';
 import { AppContext } from './context/App-Context';
 
-const AppLayout = lazy(() => import('./layouts/App-Layout'));
-const AuthLayout = lazy(() => import('./layouts/Auth-Layout'));
+const AppView = lazy(() => import('./views/App-View'));
+const AuthView = lazy(() => import('./views/Auth-View'));
+const MainView = lazy(() => import('./views/Main-View'));
+
+const Err = () => (<div>Error</div>);
 
 const App = () => {
   console.log('<-- Render App -->');
@@ -18,14 +21,15 @@ const App = () => {
       <div id="app-container" className="menu-default">
         <MenuCtx>
           <Header isAuth={isAuth} login={login} logout={logout} />
-
           <Suspense fallback="...Loading">
             <Switch>
-              <Route path="/auth/login" component={AuthLayout} />
-              <AuthRoute component={AppLayout} authUser={isAuth} />
+              <PrivateRoute path="/app" component={AppView} authUser={isAuth} />
+              <Route path="/auth" component={AuthView} />
+              <Route path="/error" component={Err} />
+              <Route path="/" exact component={MainView} />
+              <Redirect to="/error" />
             </Switch>
           </Suspense>
-
         </MenuCtx>
       </div>
     </div>

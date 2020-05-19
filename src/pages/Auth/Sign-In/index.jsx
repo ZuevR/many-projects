@@ -12,7 +12,7 @@ import {
   Button,
 } from 'reactstrap';
 
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import AppValidator from '../../../helpers/Validator';
 import FormError from '../../../components/Form-Error';
 import { AppContext } from '../../../context/App-Context';
@@ -25,8 +25,10 @@ const SignIn = () => {
   const [formErrorText, setFormErrorText] = useState({ email: 'error', password: 'error' });
   const [errorsVisibility, setErrorsVisibility] = useState({ email: false, password: false });
 
-  const { push, location: { state: { from } } } = useHistory();
   const { login } = useContext(AppContext);
+  const history = useHistory();
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: '/' } };
 
   const setFormErrors = (name, message) => setFormErrorText((state) => ({
     ...state,
@@ -70,7 +72,7 @@ const SignIn = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     login();
-    push(from);
+    history.replace(from);
   };
 
   return (

@@ -1,15 +1,14 @@
 import React, { useContext } from 'react';
-import { Switch, Route } from 'react-router';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-import Dashboard from '../../pages/Dashboard';
 import { MenuContext } from '../../context/Menu-Context';
 import { menuStages } from '../../constants';
 
 import styles from './styles.module.scss';
 
 
-const Page = () => {
+const Page = ({ children }) => {
   console.log('<-- Render Page -->');
 
   const { menuStatus } = useContext(MenuContext);
@@ -23,12 +22,14 @@ const Page = () => {
     })}
     >
       <div className="container-fluid">
-        <Switch>
-          <Route path="/" exact component={Dashboard} />
-        </Switch>
+        {children}
       </div>
     </main>
   );
 };
+
+Page.propTypes = { children: PropTypes.node };
+
+Page.defaultProps = { children: <>Empty Page</> };
 
 export default Page;

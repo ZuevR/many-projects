@@ -1,22 +1,25 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Route } from 'react-router';
 
-const AuthRoute = ({ component: Component, authUser }) => (
+const PrivateRoute = ({ component: Component, authUser, ...rest }) => (
   <Route
-    render={({ location }) => (
+    {...rest}
+    render={({ location, match }) => (
       authUser
-        ? <Component />
+        ? <Component match={match} />
         : <Redirect to={{ pathname: '/auth/login', state: { from: location } }} />
     )}
   />
 );
 
-AuthRoute.propTypes = {
+
+PrivateRoute.propTypes = {
   component: PropTypes.objectOf(PropTypes.any).isRequired,
   authUser: PropTypes.bool,
 };
 
-AuthRoute.defaultProps = { authUser: false };
+PrivateRoute.defaultProps = { authUser: false };
 
-export default AuthRoute;
+export default PrivateRoute;

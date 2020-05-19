@@ -5,7 +5,7 @@ import Storage from '../../helpers/Storage';
 
 export const AppContext = createContext({});
 
-export const storage = new Storage();
+const storage = new Storage();
 
 const AppCtx = ({ children }) => {
   const [isAuth, setAuth] = useState(storage.getData().isAuth || false);
