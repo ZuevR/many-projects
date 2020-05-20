@@ -1,5 +1,15 @@
 import React from 'react';
-import { AiOutlineDashboard } from 'react-icons/ai';
+import { TranslationOutlined, DashboardOutlined, UnorderedListOutlined } from '@ant-design/icons';
+
+const mainMenuIconStyles = {
+  fontSize: '42px',
+  color: '#303030',
+};
+
+const subMenuIconStyles = {
+  fontSize: '20px',
+  color: '#303030',
+};
 
 export const menuStages = {
   mainOpened: 1,
@@ -19,39 +29,45 @@ export const items = [
     label: 'Dashboard',
     to: '/dashboard',
     active: false,
-    icon: <AiOutlineDashboard />,
+    icon: <DashboardOutlined style={mainMenuIconStyles} />,
     subItems: [
       {
         id: 1,
         label: 'Main page',
         to: '/dashboard/main-page',
         active: false,
-        icon: <AiOutlineDashboard />,
+        icon: <DashboardOutlined style={subMenuIconStyles} />,
       },
       {
         id: 2,
         label: 'Secondary page',
         to: '/dashboard/secondary-page',
         active: false,
-        icon: <AiOutlineDashboard />,
+        icon: <DashboardOutlined style={subMenuIconStyles} />,
       },
     ],
   },
   {
     id: 2,
-    label: 'Application',
-    to: '/application',
+    label: 'Dictionary',
+    to: '/dictionary',
     active: false,
-    icon: <AiOutlineDashboard />,
+    icon: <TranslationOutlined style={mainMenuIconStyles} />,
     subItems: [
       {
         id: 1,
-        label: 'Options',
-        to: '/application/options',
+        label: 'List',
+        to: '/app/dictionary/list',
         active: false,
-        icon: <AiOutlineDashboard />,
+        icon: <UnorderedListOutlined style={subMenuIconStyles} />,
       },
-      { id: 2, label: 'List', to: '/application/list', active: false, icon: <AiOutlineDashboard /> },
+      {
+        id: 2,
+        label: 'Options',
+        to: '/app/dictionary/options',
+        active: false,
+        icon: <DashboardOutlined style={subMenuIconStyles} />,
+      },
     ],
   },
   {
@@ -59,10 +75,22 @@ export const items = [
     label: 'Worker',
     to: '/worker',
     active: false,
-    icon: <AiOutlineDashboard />,
+    icon: <DashboardOutlined style={mainMenuIconStyles} />,
     subItems: [
-      { id: 1, label: 'Subject', to: '/worker/subject', active: false, icon: <AiOutlineDashboard /> },
-      { id: 2, label: 'Object', to: '/worker/object', active: false, icon: <AiOutlineDashboard /> },
+      {
+        id: 1,
+        label: 'Subject',
+        to: '/worker/subject',
+        active: false,
+        icon: <DashboardOutlined style={subMenuIconStyles} />,
+      },
+      {
+        id: 2,
+        label: 'Object',
+        to: '/worker/object',
+        active: false,
+        icon: <DashboardOutlined style={subMenuIconStyles} />,
+      },
     ],
   },
   {
@@ -70,7 +98,7 @@ export const items = [
     label: 'Blank page',
     to: '/blank-page',
     active: false,
-    icon: <AiOutlineDashboard />,
+    icon: <DashboardOutlined style={mainMenuIconStyles} />,
     subItems: [],
   },
 ];

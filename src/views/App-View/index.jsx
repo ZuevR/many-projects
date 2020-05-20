@@ -5,13 +5,15 @@ import { Redirect, Route, Switch } from 'react-router';
 import AppLayout from '../../layouts/App-Layout';
 
 const Dashboard = lazy(() => import('../../pages/Dashboard'));
+const Dictionary = lazy(() => import('../../pages/Dictionary'));
 
 const AppView = ({ match }) => (
   <AppLayout>
     <Suspense fallback="Loading...">
       <Switch>
-        <Redirect exact from={`${match.url}/`} to={`${match.url}/dashboard`} />
-        <Route path={`${match.url}/dashboard`} component={Dashboard} />
+        <Redirect exact from={`${match.path}/`} to={`${match.path}/dashboard`} />
+        <Route path={`${match.path}/dashboard`} component={Dashboard} />
+        <Route path={`${match.path}/dictionary`} component={Dictionary} />
       </Switch>
     </Suspense>
   </AppLayout>

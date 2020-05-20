@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import { Nav } from 'reactstrap';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import cx from 'classnames';
@@ -7,7 +7,6 @@ import cx from 'classnames';
 import MainMenuItem from './blocks/Main-Menu-Item';
 import SubMenuItem from './blocks/Sub-Menu-Item';
 import { MenuContext } from '../../context/Menu-Context';
-import { MainMenuIconCtx, SubMenuIconCtx } from '../../context/Icon-Context';
 import { menuStages, items, menuSize as size } from '../../constants';
 
 import styles from './styles.module.scss';
@@ -57,23 +56,21 @@ const Sidebar = () => {
       })}
       >
         <div className={styles.scroll}>
-          <MainMenuIconCtx>
-            <PerfectScrollbar options={{
-              suppressScrollX: true,
-              wheelPropagation: false,
-            }}
-            >
-              <Nav className="d-block">
-                {menuItems && menuItems.map((menuItem) => (
-                  <MainMenuItem
-                    key={menuItem.id}
-                    item={menuItem}
-                    handleItemClick={setMainMenuItemsStatus}
-                  />
-                ))}
-              </Nav>
-            </PerfectScrollbar>
-          </MainMenuIconCtx>
+          <PerfectScrollbar options={{
+            suppressScrollX: true,
+            wheelPropagation: false,
+          }}
+          >
+            <Nav className="d-block">
+              {menuItems && menuItems.map((menuItem) => (
+                <MainMenuItem
+                  key={menuItem.id}
+                  item={menuItem}
+                  handleItemClick={setMainMenuItemsStatus}
+                />
+              ))}
+            </Nav>
+          </PerfectScrollbar>
         </div>
       </div>
       <div className={cx({
@@ -83,24 +80,22 @@ const Sidebar = () => {
       })}
       >
         <div className={styles.scroll}>
-          <SubMenuIconCtx>
-            <PerfectScrollbar
-              options={{
-                suppressScrollX: true,
-                wheelPropagation: false,
-              }}
-              className={styles['scroll-container']}
-            >
-              {menuItems && menuItems.map((menuItem) => (menuItem.subItems.length
-                ? (
-                  <Nav key={menuItem.id} className={menuItem.active ? 'd-block' : 'd-none'}>
-                    {menuItem.subItems && menuItem.subItems.map((subItem) => (
-                      <SubMenuItem key={subItem.id} item={subItem} />
-                    ))}
-                  </Nav>
-                ) : false))}
-            </PerfectScrollbar>
-          </SubMenuIconCtx>
+          <PerfectScrollbar
+            options={{
+              suppressScrollX: true,
+              wheelPropagation: false,
+            }}
+            className={styles['scroll-container']}
+          >
+            {menuItems && menuItems.map((menuItem) => (menuItem.subItems.length
+              ? (
+                <Nav key={menuItem.id} className={menuItem.active ? 'd-block' : 'd-none'}>
+                  {menuItem.subItems && menuItem.subItems.map((subItem) => (
+                    <SubMenuItem key={subItem.id} item={subItem} />
+                  ))}
+                </Nav>
+              ) : false))}
+          </PerfectScrollbar>
         </div>
       </div>
     </div>
